@@ -7,9 +7,18 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  photos = [];
+
+  photos: object[] = [];
 
   constructor(http: HttpClient) {
-    console.log(http);
+    http
+      .get<object[]>('http://localhost:3000/flavio/photos')
+      .subscribe(
+        photos => {
+          console.log(photos);
+          this.photos = photos;
+        },
+        err => console.log(err.message)
+      );
   }
 }
